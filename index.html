@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="YourCraft - A Procedural Voxel Sandbox game built with WebGL and JavaScript by Wyzuk.">
+  <title>YourCraft by Wyzuk</title>
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- External WebGL & Math Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
+
+  <!-- Main ES6 Module Entry -->
+  <script type="module" src="src/main.js"></script>
+</head>
+<body>
+  <!-- 3D WebGL Canvas -->
+  <canvas id="render-canvas"></canvas>
+
+  <!-- HUD Overlay -->
+  <div id="hud" class="hidden">
+    <div id="crosshair"></div>
+
+    <div id="debug-stats">
+      FPS: 60<br>
+      XYZ: 0.0 / 30.0 / 0.0<br>
+      Biome: Plains
+    </div>
+
+    <div id="hotbar-container">
+      <div id="health-bar">❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️</div>
+      <div id="hotbar-slots"></div>
+    </div>
+  </div>
+
+  <!-- Main Menu Overlay -->
+  <div id="main-menu" class="overlay">
+    <div class="menu-card">
+      <h1 class="game-title">YOURCRAFT</h1>
+      <p class="game-subtitle">A Procedural Voxel Sandbox</p>
+
+      <div class="menu-buttons">
+        <button id="btn-play" class="pixel-btn">PLAY</button>
+        <button id="btn-settings" class="pixel-btn secondary">SETTINGS</button>
+        <button id="btn-credits" class="pixel-btn secondary">CREDITS</button>
+      </div>
+    </div>
+
+    <div class="branding-footer-left">
+      Developer: <strong>Wyzuk</strong>
+    </div>
+    <div class="branding-footer-right">
+      GitHub: <a href="https://github.com/wyzuk" target="_blank" rel="noopener">https://github.com/wyzuk</a>
+    </div>
+  </div>
+
+  <!-- Pause Menu Overlay -->
+  <div id="pause-menu" class="overlay hidden">
+    <div class="menu-card">
+      <h2 class="game-title" style="font-size: 2rem;">GAME PAUSED</h2>
+
+      <div class="menu-buttons">
+        <button id="btn-resume" class="pixel-btn">RESUME</button>
+        <button id="btn-pause-settings" class="pixel-btn secondary">SETTINGS</button>
+        <button id="btn-new-world" class="pixel-btn secondary">GENERATE NEW WORLD</button>
+        <button id="btn-main-menu" class="pixel-btn secondary">MAIN MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inventory & Crafting Modal -->
+  <div id="inventory-modal" class="overlay hidden">
+    <div class="modal-window">
+      <div class="modal-header">INVENTORY & CRAFTING</div>
+
+      <div class="inv-section-title">Crafting Grid</div>
+      <div id="inv-craft-grid" class="inv-grid" style="grid-template-columns: repeat(2, 48px);"></div>
+
+      <div class="inv-section-title">Player Inventory</div>
+      <div id="inv-main-grid" class="inv-grid"></div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="overlay hidden">
+    <div class="modal-window">
+      <div class="modal-header">SETTINGS</div>
+
+      <div class="setting-row">
+        <label for="setting-sensitivity">Mouse Sensitivity</label>
+        <input type="range" id="setting-sensitivity" min="0.0005" max="0.005" step="0.0005" value="0.002">
+      </div>
+
+      <div class="setting-row">
+        <label for="setting-render-dist">Render Distance (<span id="val-render-dist">4</span> Chunks)</label>
+        <input type="range" id="setting-render-dist" min="2" max="8" step="1" value="4">
+      </div>
+
+      <div class="setting-row">
+        <label for="setting-volume">Sound Volume</label>
+        <input type="range" id="setting-volume" min="0" max="1" step="0.1" value="0.7">
+      </div>
+
+      <div class="setting-row">
+        <button id="btn-fullscreen" class="pixel-btn secondary" style="font-size:0.7rem; padding:10px;">TOGGLE FULLSCREEN</button>
+      </div>
+
+      <div style="margin-top: 20px; text-align: center;">
+        <button id="btn-close-settings" class="pixel-btn">DONE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Credits Modal -->
+  <div id="credits-modal" class="overlay hidden">
+    <div class="modal-window" style="text-align: center;">
+      <div class="modal-header">CREDITS</div>
+      
+      <p style="margin-bottom: 12px; font-size: 1.1rem;">Developed by</p>
+      <h3 style="font-family:'Press Start 2P'; color:#4caf50; margin-bottom: 20px;">WYZUK</h3>
+
+      <p style="margin-bottom: 16px;">Open Source GitHub Repository:</p>
+      <p style="margin-bottom: 24px;">
+        <a href="https://github.com/wyzuk" target="_blank" rel="noopener" style="color: #81c784; text-decoration: underline;">
+          https://github.com/wyzuk
+        </a>
+      </p>
+
+      <button id="btn-close-credits" class="pixel-btn">BACK</button>
+    </div>
+  </div>
+</body>
+</html>

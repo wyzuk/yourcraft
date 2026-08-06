@@ -1,0 +1,333 @@
+/* 
+ * YOURCRAFT - CSS Stylesheet
+ * Developer: Wyzuk (https://github.com/wyzuk)
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Outfit', sans-serif;
+  background-color: #000;
+  color: #fff;
+}
+
+#render-canvas {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ==================== OVERLAYS ==================== */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(2px); /* Lowered blurriness for clear home view */
+}
+
+/* Glassmorphism Cards */
+.menu-card {
+  background: rgba(15, 20, 28, 0.82);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  padding: 40px 50px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 30px rgba(76, 175, 80, 0.2);
+  min-width: 360px;
+  max-width: 500px;
+}
+
+.game-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 3rem;
+  color: #4caf50;
+  text-shadow: 4px 4px 0px #1b5e20, 0 0 20px rgba(76, 175, 80, 0.5);
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.game-subtitle {
+  font-size: 1.1rem;
+  color: #a5d6a7;
+  margin-bottom: 30px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.pixel-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.9rem;
+  padding: 16px 24px;
+  background: linear-gradient(180deg, #4caf50 0%, #2e7d32 100%);
+  color: #fff;
+  border: 3px solid #1b5e20;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  text-shadow: 2px 2px 0px #1b5e20;
+  box-shadow: 0 6px 0px #1b5e20;
+}
+
+.pixel-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(180deg, #66bb6a 0%, #388e3c 100%);
+  box-shadow: 0 8px 0px #1b5e20;
+}
+
+.pixel-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0px #1b5e20;
+}
+
+.pixel-btn.secondary {
+  background: linear-gradient(180deg, #546e7a 0%, #37474f 100%);
+  border-color: #263238;
+  text-shadow: 2px 2px 0px #263238;
+  box-shadow: 0 6px 0px #263238;
+}
+
+.pixel-btn.secondary:hover {
+  background: linear-gradient(180deg, #78909c 0%, #455a64 100%);
+  box-shadow: 0 8px 0px #263238;
+}
+
+/* Footer Credits branding */
+.branding-footer-left {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.branding-footer-right {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.branding-footer-right a {
+  color: #81c784;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.branding-footer-right a:hover {
+  text-decoration: underline;
+}
+
+/* ==================== HUD ==================== */
+#hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  pointer-events: none;
+}
+
+#crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+}
+
+#crosshair::before, #crosshair::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 2px rgba(0,0,0,0.8);
+}
+
+#crosshair::before {
+  top: 7px;
+  left: 0;
+  width: 16px;
+  height: 2px;
+}
+
+#crosshair::after {
+  top: 0;
+  left: 7px;
+  width: 2px;
+  height: 16px;
+}
+
+/* Hotbar */
+#hotbar-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+#health-bar {
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+}
+
+#hotbar-slots {
+  display: flex;
+  background: rgba(0, 0, 0, 0.6);
+  border: 4px solid #37474f;
+  border-radius: 8px;
+  padding: 4px;
+  gap: 6px;
+}
+
+.hotbar-slot {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.hotbar-slot.active {
+  border: 3px solid #ffeb3b;
+  box-shadow: 0 0 10px rgba(255, 235, 59, 0.6);
+  background: rgba(255, 235, 59, 0.2);
+}
+
+/* Debug stats */
+#debug-stats {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(0,0,0,0.5);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #a5d6a7;
+  line-height: 1.4;
+}
+
+/* ==================== INVENTORY MODAL ==================== */
+.modal-window {
+  background: #212121;
+  border: 4px solid #424242;
+  border-radius: 12px;
+  padding: 24px;
+  color: #fff;
+  min-width: 400px;
+}
+
+.modal-header {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #81c784;
+}
+
+.inv-section-title {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: #bbb;
+}
+
+.inv-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 48px);
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.inv-slot {
+  width: 48px;
+  height: 48px;
+  background: #333;
+  border: 2px solid #555;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.item-icon-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.item-name-short {
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.item-count {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #ffeb3b;
+}
+
+/* Settings sliders */
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+}
+
+.setting-row input[type="range"] {
+  width: 150px;
+}
